@@ -125,3 +125,35 @@ func Download(filepath string, url string) (err error) {
 
 	return nil
 }
+
+// GetIndex : search a slice for a value and return its index
+func GetIndex(min int, similarities []int) int {
+	for index, value := range similarities {
+		if min == value {
+			return index
+		}
+	}
+	return -1
+}
+
+// Min : return the minimum value of a slice
+func Min(values []int) int {
+	min := values[0]
+	for _, v := range values {
+		if v < min {
+			min = v
+		}
+	}
+	return min
+}
+
+// Max : return the maximum value of a slice
+func Max(values []int) int {
+	max := values[0]
+	for _, v := range values {
+		if v > max {
+			max = v
+		}
+	}
+	return max
+}
