@@ -1,11 +1,13 @@
 package util
 
 import (
+	"bytes"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
+	"os/exec"
 	"os/user"
 	"path/filepath"
 	"reflect"
@@ -156,4 +158,30 @@ func Max(values []int) int {
 		}
 	}
 	return max
+}
+
+// ExecuteWithOutput : execute a command through bash -c and return the stdout
+func ExecuteWithOutput(command string) string {
+	cmd := exec.Command("bash", "-c", command)
+	var outbuf, errbuf bytes.Buffer
+	cmd.Stderr = &errbuf
+	cmd.Stdout = &outbuf
+	cmd.Stdin = os.Stdin
+	err := cmd.Run()
+	if err != nil {
+		fmt.Print(errbuf.String())
+	}
+	return outbuf.String()
+}
+
+// Execute : execute a command through bash -c
+func Execute(command string) {
+	cmd := exec.Command("bash", "-c", command)
+	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
+	cmd.Stdin = os.Stdin
+	err := cmd.Run()
+	if err != nil {
+		fmt.Print(cmd.Stderr)
+	}
 }
