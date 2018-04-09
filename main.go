@@ -176,12 +176,14 @@ func ExecuteWithOutput(command string) string {
 
 // Execute : execute a command through bash -c
 func Execute(command string) {
+	var errbuf bytes.Buffer
 	cmd := exec.Command("bash", "-c", command)
-	cmd.Stderr = os.Stderr
+	cmd.Stderr = &errbuf
 	cmd.Stdout = os.Stdout
 	cmd.Stdin = os.Stdin
 	err := cmd.Run()
 	if err != nil {
-		fmt.Print(cmd.Stderr)
+		fmt.Print(errbuf.String())
+		os.Exit(0)
 	}
 }
