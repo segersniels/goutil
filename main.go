@@ -174,16 +174,18 @@ func ExecuteWithOutput(command string) string {
 	return outbuf.String()
 }
 
-// Execute : execute a command through bash -c
+// Execute : execute a command through bash -c, pass []string{} as env to ignore custom vars
 func Execute(command string, env []string) {
 	var errbuf bytes.Buffer
 	cmd := exec.Command("bash", "-c", command)
 	cmd.Stderr = &errbuf
 	cmd.Stdout = os.Stdout
 	cmd.Stdin = os.Stdin
-	cmd.Env = os.Environ()
-	for _, e := range env {
-		cmd.Env = append(cmd.Env, e)
+	if len(env) > 0 {
+		cmd.Env = os.Environ()
+		for _, e := range env {
+			cmd.Env = append(cmd.Env, e)
+		}
 	}
 	err := cmd.Run()
 	if err != nil {
