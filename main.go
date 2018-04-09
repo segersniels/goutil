@@ -30,6 +30,27 @@ func Exists(slice interface{}, item interface{}) bool {
 	return false
 }
 
+// RequireInput : ask for input to the user
+func RequireInput(question string) string {
+	var qs = []*survey.Question{
+		{
+			Name: "selection",
+			Prompt: &survey.Input{
+				Message: question,
+			},
+		},
+	}
+	answers := struct {
+		Selection string
+	}{}
+	err := survey.Ask(qs, &answers)
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(0)
+	}
+	return answers.Selection
+}
+
 // Question : ask the user a question prompt using survey package
 func Question(question string, options []string) string {
 	var qs = []*survey.Question{
