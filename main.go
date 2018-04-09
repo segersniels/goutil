@@ -149,10 +149,20 @@ func Download(filepath string, url string) (err error) {
 	return nil
 }
 
-// GetIndex : search a slice for a value and return its index
-func GetIndex(min int, similarities []int) int {
-	for index, value := range similarities {
-		if min == value {
+// GetIndexString : search a slice for a value and return its index
+func GetIndexString(value string, slice []string) int {
+	for index, v := range slice {
+		if value == v {
+			return index
+		}
+	}
+	return -1
+}
+
+// GetIndexInt : search a slice for a value and return its index
+func GetIndexInt(value int, slice []int) int {
+	for index, v := range slice {
+		if value == v {
 			return index
 		}
 	}
