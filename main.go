@@ -222,3 +222,16 @@ func Execute(command string, env []string) {
 func Log(a ...interface{}) {
 	logrus.Info(strings.TrimSpace(spew.Sdump(a...)))
 }
+
+// Warn : custom TTY warning
+func Warn(a ...interface{}) {
+	logrus.Warn(strings.TrimSpace(spew.Sdump(a...)))
+}
+
+// Fields : fields type needed to pass to LogWithFields
+type Fields map[string]interface{}
+
+// LogWithFields : custom logging with fields
+func LogWithFields(fields map[string]interface{}, value string) {
+	logrus.WithFields(fields).Info(value)
+}
