@@ -17,6 +17,11 @@ func Warn(a ...interface{}) {
 	logrus.Warn(a...)
 }
 
+// Fatal : custom TTY fatal logging
+func Fatal(a ...interface{}) {
+	logrus.Fatal(a...)
+}
+
 // Panic : custom TTY panic logging
 func Panic(a ...interface{}) {
 	logrus.Panic(a...)
@@ -33,6 +38,11 @@ func LogWithFields(fields map[string]interface{}, value string) {
 // WarnWithFields : custom warning with fields
 func WarnWithFields(fields map[string]interface{}, value string) {
 	logrus.WithFields(fields).Warn(value)
+}
+
+// FatalWithFields : custom panic with fields
+func FatalWithFields(fields map[string]interface{}, value string) {
+	logrus.WithFields(fields).Fatal(value)
 }
 
 // PanicWithFields : custom panic with fields
