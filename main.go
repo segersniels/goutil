@@ -11,12 +11,9 @@ import (
 	"os/user"
 	"path/filepath"
 	"reflect"
-	"strings"
 	"sync"
 
 	"github.com/AlecAivazis/survey"
-	"github.com/davecgh/go-spew/spew"
-	"github.com/sirupsen/logrus"
 )
 
 // RequireInput : ask for input to the user
@@ -216,22 +213,4 @@ func Execute(command string, env []string) {
 		fmt.Print(errbuf.String())
 		os.Exit(0)
 	}
-}
-
-// Log : custom TTY logging
-func Log(a ...interface{}) {
-	logrus.Info(strings.TrimSpace(spew.Sdump(a...)))
-}
-
-// Warn : custom TTY warning
-func Warn(a ...interface{}) {
-	logrus.Warn(a...)
-}
-
-// Fields : fields type needed to pass to LogWithFields
-type Fields map[string]interface{}
-
-// LogWithFields : custom logging with fields
-func LogWithFields(fields map[string]interface{}, value string) {
-	logrus.WithFields(fields).Info(value)
 }
