@@ -225,7 +225,7 @@ func Log(a ...interface{}) {
 
 // Warn : custom TTY warning
 func Warn(a ...interface{}) {
-	logrus.Warn(strings.TrimSpace(spew.Sdump(a...)))
+	logrus.Warn(a...)
 }
 
 // Fields : fields type needed to pass to LogWithFields
