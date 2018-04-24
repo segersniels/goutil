@@ -16,13 +16,35 @@ import (
 	"github.com/AlecAivazis/survey"
 )
 
-// RequireInput : ask for input to the user
-func RequireInput(question string) string {
+// Input : ask for user input
+func Input(question string) string {
 	var qs = []*survey.Question{
 		{
 			Name: "selection",
 			Prompt: &survey.Input{
 				Message: question,
+			},
+		},
+	}
+	answers := struct {
+		Selection string
+	}{}
+	err := survey.Ask(qs, &answers)
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(0)
+	}
+	return answers.Selection
+}
+
+// InputDefault : ask for user input with default value
+func InputDefault(question string, value string) string {
+	var qs = []*survey.Question{
+		{
+			Name: "selection",
+			Prompt: &survey.Input{
+				Message: question,
+				Default: value,
 			},
 		},
 	}
